@@ -24,5 +24,4 @@ public class ResourceServerConfigurerAdapterImpl extends ResourceServerConfigure
                 .antMatchers("/users").access("#oauth2.hasScope('read')");
     }
 
-
 }

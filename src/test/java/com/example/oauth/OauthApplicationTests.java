@@ -35,7 +35,7 @@ public class OauthApplicationTests {
 
     @Autowired
     private FilterChainProxy springSecurityFilterChain;
-    private String CONTENT_TYPE = "application/json;charset=UTF-8";;
+    private String CONTENT_TYPE = "application/json;charset=UTF-8";
     private String SCOPE = "read";
     private String CLIENT_ID = "foo";
     private String CLIENT_SECRET = "bar";
@@ -54,9 +54,9 @@ public class OauthApplicationTests {
 
     @Test
     public void when_callUsers_expect_success() throws Exception {
-        String token =obtainAccessToken(SECURITY_USERNAME,SECURITY_PASSWORD);
+        String accessToken =obtainAccessToken(SECURITY_USERNAME,SECURITY_PASSWORD);
         mockMvc.perform(get("/users")
-                .header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + accessToken)
                 .accept(CONTENT_TYPE))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(CONTENT_TYPE));
