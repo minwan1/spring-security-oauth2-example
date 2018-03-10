@@ -12,7 +12,7 @@ import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 import javax.sql.DataSource;
 
-@EnableResourceServer  // API 서버 인증(또는 권한 설정)
+@EnableResourceServer // API 서버 인증, 권한 설정
 @EnableAuthorizationServer // 자원서버 설정
 @Configuration
 public class ResourceServerConfigurerAdapterImpl extends ResourceServerConfigurerAdapter {
@@ -23,6 +23,5 @@ public class ResourceServerConfigurerAdapterImpl extends ResourceServerConfigure
         http.authorizeRequests()
                 .antMatchers("/users").access("#oauth2.hasScope('read')");
     }
-
 
 }

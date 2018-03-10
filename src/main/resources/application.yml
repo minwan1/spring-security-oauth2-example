@@ -1,4 +1,4 @@
-#현재는 사용되지 않음
+#MYSQL
 #spring:
 #  datasource:
 #    url: jdbc:mysql://localhost:3306/oauth
@@ -8,6 +8,17 @@
 #  jpa:
 #    hibernate:
 #      ddl-auto: update
+
+#H2
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost:9092/mem:testdb;MVCC=TRUE
+    driverClassName: org.h2.Driver
+    username: root
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
 
 spring.h2.console:
   enabled: true
