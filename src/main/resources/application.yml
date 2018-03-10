@@ -31,12 +31,6 @@ security:
   user:
     name: user
     password: test
-  oauth2:
-    client:
-      client-id: foo
-      client-secret: bar
-
-
 
 logging:
   level:
