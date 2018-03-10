@@ -1,0 +1,32 @@
+#현재는 사용되지 않음
+#spring:
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/oauth
+#    driverClassName: com.mysql.jdbc.Driver
+#    username: root
+#    password:
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+
+spring.h2.console:
+  enabled: true
+  path: /h2-console
+
+
+
+# 사용
+security:
+  user:
+    name: user
+    password: test
+  oauth2:
+    client:
+      client-id: foo
+      client-secret: bar
+
+
+
+logging:
+  level:
+    ROOT: DEBUG
