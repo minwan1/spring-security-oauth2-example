@@ -11,7 +11,6 @@ Spring oauth 구현
 ```
 $ mvn spring-boot:run
 ```
-* [블로그 글](https://minwan1.github.io/2018/03/11/2018-03-11-Spring-OAuth%EA%B5%AC%ED%98%84/)
 
 ### OAuth란?
 OAuth는 Open Authorization, Open Authentication 뜻하는 것으로 자신의 애플리케이션 서버의 데이터로 다른 Third party에게 자원을 공유하거나 대신 유저 인증을 처리해줄 수 있는 오픈 표준 프로토콜이다.
@@ -279,6 +278,8 @@ public RemoteTokenServices tokenService() {
 스프링을 통해 OAuth2를 간단하게 구현해봤다. 첫 부분에는 토큰 관리, 클라이언트 등록 등 In-Memory를 통해 간단하게 OAuth2 구현했고, 중간 부분부터는 인증서버와 자원 서버의 클래스를 분리했다. 또한 토큰 관리, 클라이언트 등록 등을 InMemmory로 관리했었는데 이러한 것을 외부 DB 등록을 통해 관리하게 해봤다. OAuth2 인증 방식은 password 인증 방식만 구현해봤는데, 다른 인증 방식을 넣는 것은 어렵지 않다. 인증서버와 자원 서버만 설정되어 있다면 금방 도입할 수 있다. 물론 Product 용으로 개발하는 데까지는 많은 시간이 걸릴 것이다. 요즘 점점 시간이 지나면서 쿠키를 통한 session 방식의 로그인은 없어지고 있는 것 같다. 점점 모바일 환경 등 멀티 디바이스를 지원해야 하므로 웹 하나만을 위한 서버를 만드는 일은 비효율적이기 때문일 것이다. 그래서 많은 서버들이 Token 방식의 로그인 방식으로 옮기고 있는 것 같다. 그중에서도 OAuth2는 많은 인증 방식 등과 인증의 간편함을 가져 인기가 좋은것같다.
 
 이 예제와 관련한 소스는 [여기](https://github.com/minwan1/spring-oauth/tree/oauth-server-separation-1)에서 확인할 수 있습니다
+
+* [Wan블로그](https://minwan1.github.io/2018/03/11/2018-03-11-Spring-OAuth%EA%B5%AC%ED%98%84/)
 
 참고
 * [OAuth 2 Developers Guide](http://projects.spring.io/spring-security-oauth/docs/oauth2.html)
