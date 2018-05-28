@@ -1,31 +1,24 @@
 package com.example.oauth.user;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 
-@Data
 @Entity
 @Getter
-@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
 
     @Id
     @GeneratedValue
-    Long id;
-    String name;
-    String username;
-    String remark;
-
-    public User() {
-    }
+    private Long id;
+    private String name;
+    private String username;
+    private String remark;
 
     @Builder
     public User(String name, String username, String remark) {

@@ -13,12 +13,6 @@ import java.sql.SQLException;
 @Configuration
 public class H2ServerConfiguration {
 
-//    @Bean
-//    public Server h2TcpServer() throws SQLException {
-//        return Server.createTcpServer().start();
-//    }
-    // 이게 안되면 아래의 방법으로 사용해야한다.
-
     @Bean
     @ConfigurationProperties("spring.datasource")
     // yml의 설정값을 Set한다.
