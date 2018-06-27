@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/minwan1/Spring-oauth.svg?branch=master)](https://travis-ci.com/minwan1/Spring-oauth)
+[![Coverage Status](https://coveralls.io/repos/github/minwan1/Spring-oauth/badge.svg?branch=master)](https://coveralls.io/github/minwan1/Spring-oauth?branch=master)
 
 ## Spring OAuth2
 Spring oauth 구현 
