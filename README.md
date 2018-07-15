@@ -15,7 +15,7 @@ Spring-Security-Oauth2 구현 예제입니다.
 $ mvn spring-boot:run
 ```
 
-## 테스트
+## Test 방법
 ```
 Spring-oauth/src/test/java/com/example/oauth/OauthApplicationTests.java
 ```
