@@ -15,6 +15,16 @@ Spring oauth 구현
 $ mvn spring-boot:run
 ```
 
+## 테스트
+```
+Spring-oauth/src/test/java/com/example/oauth/OauthApplicationTests.java
+```
+## 목차
+
+* Spring-Security-Oauth2[1] -  OAuth2 in-memory 방식으로 간단한 구현
+* Spring-Security-Oauth2[1] -  OAuth2 실제 DB연동을 통한 Oauth2 구현
+
+
 ### OAuth란?
 OAuth는 Open Authorization, Open Authentication 뜻하는 것으로 자신의 애플리케이션 서버의 데이터로 다른 Third party에게 자원을 공유하거나 대신 유저 인증을 처리해줄 수 있는 오픈 표준 프로토콜이다.
 
