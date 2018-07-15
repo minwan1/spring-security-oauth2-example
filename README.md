@@ -1,7 +1,7 @@
 
 
-## Spring OAuth2
-Spring oauth 구현 
+## Spring Security OAuth2
+Spring Security OAuth Inmemory방식의 구현 
 
 ## 개발환경
 * Spring boot 1.5.9
