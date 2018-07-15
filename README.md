@@ -21,11 +21,12 @@ Spring-oauth/src/test/java/com/example/oauth/OauthApplicationTests.java
 ```
 ## 목차
 
-* example-1 : in-memory 방식을 사용한 OAuth2 구현
-* example-2 : JDBC 방식을 사용한 OAuth2 구현
+* example-1 : [in-memory 방식을 사용한 OAuth2 구현](https://github.com/minwan1/spring-security-oauth2/tree/example-1)
+* example-2 : [JDBC 방식을 사용한 OAuth2 구현](https://github.com/minwan1/spring-security-oauth2/tree/example-1)
 
 
-### OAuth란?
+## OAuth란?
+
 OAuth는 Open Authorization, Open Authentication 뜻하는 것으로 자신의 애플리케이션 서버의 데이터로 다른 Third party에게 자원을 공유하거나 대신 유저 인증을 처리해줄 수 있는 오픈 표준 프로토콜이다.
 
 ### OAuth 실 사용 예
