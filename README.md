@@ -1,8 +1,8 @@
 [![Build Status](https://travis-ci.com/minwan1/Spring-oauth.svg?branch=master)](https://travis-ci.com/minwan1/Spring-oauth)
 [![Coverage Status](https://coveralls.io/repos/github/minwan1/Spring-oauth/badge.svg?branch=master)](https://coveralls.io/github/minwan1/Spring-oauth?branch=master)
 
-## Spring-Security-Oauth2
-Spring-Security-Oauth2 구현 예제입니다.
+## Spring-Security-OAuth2
+Spring-Security-OAuth2 구현 예제입니다.
 
 ## 개발환경
 * Spring boot 1.5.9
