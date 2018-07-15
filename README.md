@@ -1,8 +1,8 @@
 [![Build Status](https://travis-ci.com/minwan1/Spring-oauth.svg?branch=master)](https://travis-ci.com/minwan1/Spring-oauth)
 [![Coverage Status](https://coveralls.io/repos/github/minwan1/Spring-oauth/badge.svg?branch=master)](https://coveralls.io/github/minwan1/Spring-oauth?branch=master)
 
-## Spring OAuth2
-Spring oauth 구현 
+## Spring-Security-OAuth2
+Spring-Security-OAuth2 구현 예제입니다.
 
 ## 개발환경
 * Spring boot 1.5.9
@@ -15,7 +15,12 @@ Spring oauth 구현
 $ mvn spring-boot:run
 ```
 
-### OAuth란?
+## Test 방법
+```
+Spring-oauth/src/test/java/com/example/oauth/OauthApplicationTests.java
+```
+
+## OAuth란?
 OAuth는 Open Authorization, Open Authentication 뜻하는 것으로 자신의 애플리케이션 서버의 데이터로 다른 Third party에게 자원을 공유하거나 대신 유저 인증을 처리해줄 수 있는 오픈 표준 프로토콜이다.
 
 ### OAuth 실 사용 예
