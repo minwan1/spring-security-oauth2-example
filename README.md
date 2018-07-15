@@ -22,7 +22,7 @@ Spring-oauth/src/test/java/com/example/oauth/OauthApplicationTests.java
 ## 목차
 
 * example-1 : [in-memory 방식을 사용한 OAuth2 구현](https://github.com/minwan1/spring-security-oauth2/tree/example-1)
-* example-2 : [JDBC 방식을 사용한 OAuth2 구현](https://github.com/minwan1/spring-security-oauth2/tree/example-1)
+* example-2 : [JDBC 방식을 사용한 OAuth2 구현](https://github.com/minwan1/spring-security-oauth2/tree/example-2)
 
 
 ## OAuth란?
