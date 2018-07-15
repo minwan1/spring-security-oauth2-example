@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.com/minwan1/Spring-oauth.svg?branch=master)](https://travis-ci.com/minwan1/Spring-oauth)
 [![Coverage Status](https://coveralls.io/repos/github/minwan1/Spring-oauth/badge.svg?branch=master)](https://coveralls.io/github/minwan1/Spring-oauth?branch=master)
 
-## Spring OAuth2
+## Spring-Security-Oauth2
 Spring oauth 구현 
 
 ## 개발환경
@@ -21,8 +21,8 @@ Spring-oauth/src/test/java/com/example/oauth/OauthApplicationTests.java
 ```
 ## 목차
 
-* Spring-Security-Oauth2[1] -  OAuth2 in-memory 방식으로 간단한 구현
-* Spring-Security-Oauth2[1] -  OAuth2 실제 DB연동을 통한 Oauth2 구현
+* example-1 : in-memory 방식을 사용한 OAuth2 구현
+* example-2 : JDBC 방식을 사용한 OAuth2 구현
 
 
 ### OAuth란?
