@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.com/minwan1/Spring-oauth.svg?branch=master)](https://travis-ci.com/minwan1/Spring-oauth)
-[![Coverage Status](https://coveralls.io/repos/github/minwan1/Spring-oauth/badge.svg?branch=master)](https://coveralls.io/github/minwan1/Spring-oauth?branch=master)
+[![Build Status](https://travis-ci.com/minwan1/spring-security-oauth2-example.svg?branch=master)](https://travis-ci.com/minwan1/spring-security-oauth2-example)
+[![Coverage Status](https://coveralls.io/repos/github/minwan1/spring-security-oauth2-example/badge.svg)](https://coveralls.io/github/minwan1/spring-security-oauth2-example)
 
 ## Spring-Security-OAuth2
 Spring-Security-OAuth2 구현 예제입니다.
