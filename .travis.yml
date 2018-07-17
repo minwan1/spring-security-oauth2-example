@@ -9,3 +9,6 @@ script: mvn install
 branches:
  only:
     - master
+    
+after_success:
+  - mvn clean cobertura:cobertura coveralls:report
