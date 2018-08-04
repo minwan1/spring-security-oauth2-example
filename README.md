@@ -15,7 +15,7 @@ Spring-Security-OAuth2 구현 예제입니다.
 
 # 문서
 
-1. [step1 : oauth1, oauth2란]()
+1. [step1 : oauth1, oauth2란](https://github.com/minwan1/spring-security-oauth2-example/blob/master/docs/step-1%3Aoauth1%2Coauth2%EB%9E%80.md)
 2. [step2 : spring-security-oauth2구현(in-memory, jdbc방식을 사용한 예제)]()
 
 
