@@ -34,4 +34,4 @@ security:
 
 logging:
   level:
-    ROOT: DEBUG
+    ROOT: error
