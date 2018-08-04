@@ -1,9 +1,26 @@
-## Spring Security OAuth2구현
 
-### OAuth란?
+
+# Spring Security OAuth2구현
+
+<!-- TOC -->
+
+- [Spring Security OAuth2구현](#spring-security-oauth2구현)
+    - [OAuth란?](#oauth란)
+    - [OAuth 실 사용 예](#oauth-실-사용-예)
+    - [Spring으로 OAuth2구현](#spring으로-oauth2구현)
+        - [OAuth2 역할](#oauth2-역할)
+        - [Resource Owner Password Credentials Grant 동작방식](#resource-owner-password-credentials-grant-동작방식)
+        - [OAuth2 in-memory 방식으로 간단한 구현](#oauth2-in-memory-방식으로-간단한-구현)
+        - [OAuth2 JdbcTokenStore등을 이용한 데이터 영속화](#oauth2-jdbctokenstore등을-이용한-데이터-영속화)
+        - [Authorization Server, Resource Server 애플리케이션 분리](#authorization-server-resource-server-애플리케이션-분리)
+- [마무리 하며...](#마무리-하며)
+
+<!-- /TOC -->
+
+## OAuth란?
 OAuth는 Open Authorization, Open Authentication 뜻하는 것으로 자신의 애플리케이션 서버의 데이터로 다른 Third party에게 자원을 공유하거나 대신 유저 인증을 처리해줄 수 있는 오픈 표준 프로토콜이다.
 
-### OAuth 실 사용 예
+## OAuth 실 사용 예
 간단히 OAuth인증에 대해 실 사용 예를 보자면 웹, 앱들을 사용하면서 네이버 로그인, 카카오 로그인, 페이스북 로그인 등을 한 번쯤은 보았을 것이다. 이것이 바로 OAuth인 증 방식 중 하나이다. 네이버 로그인, 카카오 로그인, 페이스북 로그인 등으로 로그인을 하게 되면 그 애플리케이션들로부터 Access_token이라는 값을 받아 써드파티 애플리케이션에게 준다. Access_token이라는 값이 어떻게 보면 유저의 인증 키라고 보면 된다. 물론 유저가 로그인을 실패한다면 Access_token을 받지 못할 것이다. Access_token 을 받았다는 것은 해당 유저가 인증이 되었다는 것을 의미한다. 이러한 기술을 통해서 써드파티 애플리케이션에게 유저를 인증 시킨다. 이것이 OAuth인증이다. 물론 OAuth가 Authentication(인증) 기능만 하는 것은 아니다.
 
 OAuth는 Authorization(인가)에 대한 기능도 있다. Authorization라는 기능(?)을 이용하면 써드파티 앱들은 유저가 선택한 로그인 방식에 애플리케이션의 유저 정보 등을 얻을 수 있다. 이정보를 바탕으로 써드파티 앱들은 유저를 자신의 앱에 가입시킨다. 뿐만 아니라 서드파티 앱들은 유저가 로그인한 애플리케이션의 기능 등을 사용할 수 있다. 이것을 잘 사용하는 로켓펀치라는 구직 사이트가 있다. 이 사이트에 페이스북으로 로그인하기 기능 이용하여 로그인과 함께 친구 정보 제공을 동의하고 my account를 들어가면 내 친구들의 로켓펀치의 등록된 구직 정보들을 볼 수 있다. 이것이 가능한 이유는 아까 받은 Access_token으로 페이스북에게 유저의 정보를 요청할 수 있기 때문이다. 이러한 조회 기능뿐만 아니라 유저의 동의만 얻는다면 페이스북 담벼락에 글 남기기 등의 기능들도 사용할 수 있다. 이런 것들 가능하게 해주는 것이 OAuth 인증이다. OAuth도 버전이 있고, 그 차이점이 있는데 미흡하지만 [OAuth란?](https://minwan1.github.io/2018/02/24/2018-02-24-OAuth/)을 참조하면 될 것 같다.
@@ -11,13 +28,13 @@ OAuth는 Authorization(인가)에 대한 기능도 있다. Authorization라는 �
 위와 같은 방법뿐만 아니라 Microservices에 인증 방식으로도 사용된다. 마이크로서비스란 하나의 큰 애플리케이션을 여러개의 작은 애플리케이션으로 쪼개어 변경과 조합이 가능하도록 만든 아키텍처를 말한다. 이 [마이크로서비스 아키텍처, 그것이 뭣이 중헌디?](http://guruble.com/%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C%EC%84%9C%EB%B9%84%EC%8A%A4microservice-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EA%B7%B8%EA%B2%83%EC%9D%B4-%EB%AD%A3%EC%9D%B4-%EC%A4%91%ED%97%8C%EB%94%94/)글에 마이크로서비스에 대한 내용들이 잘 설명돼 있다. 아무래도 자원들이 각각의 서버에 분리해있다보니 인증이나, 인가를 하나로 적절히 관리하는것이 필요하다. 만약 모놀리틱 아키텍처로 이러한 자원들을 관리하게된다면 상당히 비효율적일 것이다. 각각의 자원 서버마다 필요한 자원의 서비스를 호출하려고하면 인증,인가처리를 해야하기 떄문에 매우 비효율적으로 될것이다. 하지만 OAuth방식을 이용한다면 인증서버를 두고 각각의 자원서비스들의 인증, 인가를 관리한다면 효율적으로 자원 서비스들을 관리할 수 있다.
 
 
-### Spring으로 OAuth2구현
+## Spring으로 OAuth2구현
 뭔가 서론이 장황해진 것 같다. 결론을 말씀드리자면 이러한 장점들을 이용하기 위해 OAuth인증 시스템을 구현해 볼 것이다. 구현 방법은 Spring을 이용해서 Spring security의 하위 프로젝트 Spring OAuth를 구현할 것이다. 여기에서 구현하고자하는 방식은 OAuth2방식이고 인증 방식은 Password 방식을 구현할 것이다. OAuth2부터는 다양한 인증 방식을 제공하는데 여기에대한 차이점은 [OAuth란?](https://minwan1.github.io/2018/02/24/2018-02-24-OAuth/)글에서 확인할 수 있다.
 
-#### OAuth2 역할
+### OAuth2 역할
 먼저 구현전에 OAuth2에 역할에대해 알아보자. OAuth2는 크게 Resource Owner, Authorization Server, Resource Server, Client 4개의 역할로 나누어진다. 먼저 Resource Owner는 유저를 말한다. 이유저는 위에서말한 카카오톡,네이버,구글등에 로그인 할 수 있고 그 해당 애플리케이션의 기능을 이용 가능한 유저를 말한다. Authorization Server는 인증 서버를 말한다. 유저가 OAuth를 통해 로그인한다면 카카오톡,네이버,구글의 유저가 맞는지 확인해주는 서버를 말한다. Resource Server는 카카오톡,네이버,구글의 자원(API)이 있는 서버를 말한다. Client는 써드파티앱들을 말한다. Authorization Server, Resource Server를 이용하는 앱들은 모두 Clinet라고 생각하면 된다.
 
-#### Resource Owner Password Credentials Grant 동작방식
+### Resource Owner Password Credentials Grant 동작방식
 먼저 구현하려고하는 password 인증 방식이 무엇인지 간단하게 살펴보자. 이방식을 사용하기 위해서는 AuthorizationServer에 Client-id와 secret을 등록해야한다. 그리고 Client가 Resource Owner로부터 아이디/패스워드를 받아 직접 access token을 받아오는 방식이다. 이때 클라이언트는 AccessToken을 얻기 위해 AuthorizationServer에 호출할때 이 Client-id와 secret을 Basic-auth를 해줘야 한다. 하지만 이방식은 Client가 신용이 없을 때에는 사용하기에 위험하다는 단점이 있다. 클라이언트가 확실한 신용이 보장될 때 사용할 수 있는 방식이다.
 ![](https://i.imgur.com/7LhjI1L.png)
 동작 순서는 대략 이렇다.
@@ -29,7 +46,7 @@ OAuth는 Authorization(인가)에 대한 기능도 있다. Authorization라는 �
 
 그럼 이제 실제 구현을 해볼것이다.
 
-#### OAuth2 in-memory 방식으로 간단한 구현
+### OAuth2 in-memory 방식으로 간단한 구현
 OAuth는 인증서버와 자원 서버를 하나의 애플리케이션에서 구현할 수도 있고, 분리할 수도 있다. 여기에서는 두 개를 하나의 애플리케이션에서 구현할 것이다. Resource Owner, Client 관리는 in-memory를 이용할 것이다. 아래와 같이 application.yml에 Resource Owner를 지정하고, Client를 쉽게 등록할 수 있다.
 ```
 security:
@@ -106,7 +123,7 @@ public void when_callUsers_expect_success() throws Exception {
 그 다음 생성한 토큰을 이용해서 header 값에 access_token을 넣은 후 호출하면 호출에 성공한 모습을 확인할 수 있다. 이것의 전체적인 구현인 토큰 관리, client, user 등록등 In-memory기반에 의하여 구현되었다. 그렇기 때문에 서버가 종료되면 기존에 발급되었던 토큰들이 모두 소멸된다. Product로 사용하기 위해서는 JdbcTokenStore빈을 통해서 토큰 관리, client, user 등록등을 영속화하여 사용해야 한다. in-memory 방식으로 구현한 OAuth소스는 [이곳](https://github.com/minwan1/spring-oauth/tree/simple-inmemory-oauth)에서 확인할 수 있다.
 
 
-#### OAuth2 JdbcTokenStore등을 이용한 데이터 영속화
+### OAuth2 JdbcTokenStore등을 이용한 데이터 영속화
 이제 Authorization Server, Resource Server을 커스터마이징하여 데이터들의 관리를 영속화할 것이다. 가장먼저 해야할것은 Spring Security Oauth에 맞는 디비에 대한 [스키마 ](https://github.com/spring-projects/spring-security-oauth/blob/master/spring-security-oauth2/src/test/resources/schema.sql)를 만드는것이다. 그 후 TokenStore의 빈을 등록하는것이다. TokenStore 빈을 등록을하게 되면 Token관리, Client관리등을 디비로 할 수 있게된다.
 
 ```java
@@ -227,7 +244,7 @@ INSERT INTO PUBLIC.OAUTH_CLIENT_DETAILS (CLIENT_ID, RESOURCE_IDS, CLIENT_SECRET,
 ```
 그리고 위와 같이 Client에 관한 데이터를 Insert해주면 된다. 그렇게 되면 DB에서 클라이언 정보를 관리할 수 있게 된다.
 
-#### Authorization Server, Resource Server 애플리케이션 분리
+### Authorization Server, Resource Server 애플리케이션 분리
 
 지금은 하나의 어플리케이션에 Authorization Server, Resource Server를 구현했다. 만약 다른 어플리케이션에 다른 데이터베이스를 바라보고 Authorization Server, Resource Server를 구성했다면 HTTP 통신을 통해 토큰을 확인해야한다. 그럴려면 먼저 인증서버에서 accessToken이 유효한지 확인할 수 있는 URL이 있어야 한다. 하지만 이것은 스프링에서 아래와 같이 설정해준다면 기본적으로 기능을 제공해준다.
 
@@ -262,7 +279,7 @@ public RemoteTokenServices tokenService() {
 ```
 위와 같이 등록하면 자원서버는 등록된 URL로 accessToken이 유효한지 체크를 할것이다.
 
-### 마무리 하며...
+# 마무리 하며...
 스프링을 통해 OAuth2를 간단하게 구현해봤다. 첫 부분에는 토큰 관리, 클라이언트 등록 등 In-Memory를 통해 간단하게 OAuth2 구현했고, 중간 부분부터는 인증서버와 자원 서버의 클래스를 분리했다. 또한 토큰 관리, 클라이언트 등록 등을 InMemmory로 관리했었는데 이러한 것을 외부 DB 등록을 통해 관리하게 해봤다. OAuth2 인증 방식은 password 인증 방식만 구현해봤는데, 다른 인증 방식을 넣는 것은 어렵지 않다. 인증서버와 자원 서버만 설정되어 있다면 금방 도입할 수 있다. 물론 Product 용으로 개발하는 데까지는 많은 시간이 걸릴 것이다. 요즘 점점 시간이 지나면서 쿠키를 통한 session 방식의 로그인은 없어지고 있는 것 같다. 점점 모바일 환경 등 멀티 디바이스를 지원해야 하므로 웹 하나만을 위한 서버를 만드는 일은 비효율적이기 때문일 것이다. 그래서 많은 서버들이 Token 방식의 로그인 방식으로 옮기고 있는 것 같다. 그중에서도 OAuth2는 많은 인증 방식 등과 인증의 간편함을 가져 인기가 좋은것같다.
 
 이 예제와 관련한 소스는 [여기](https://github.com/minwan1/spring-oauth/tree/oauth-server-separation-1)에서 확인할 수 있습니다
