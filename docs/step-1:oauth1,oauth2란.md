@@ -67,9 +67,9 @@ OAuth는 Open Authorization, Open Authentication 뜻하는 것으로 애플리�
 아래는 Consumer의 요청시 매개변수의 종류에 대한 설명이다.
 
 #### Request Token 발급 매개변수
-Request Token 발급 요청 시 사용하는 매개변수는 다음 표와 같다.
+Request Token 발급 요청 시 사용하는 매개변수는 다음 표와 같다.<br>
 
-| 매개변수               | 설명                                                                                                                                                                                           |
+| 매개변수               | 설명  |
 | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | OAuth_callback         | Service Provider가 인증을 완료한 후 리다이렉트할 Consumer의 웹 주소. 만약 Consumer가 웹 애플리케이션이 아니라 리다이렉트할 주소가 없다면 소문자로 'oob'(Out Of Band라는 뜻)를 값으로 사용한다. |
 | OAuth_consumer_key    |Consumer를 구별하는 키 값. Service Provider는 이 키 값으로 Consumer를 구분한다. |                                                                                                                                                                                                |
@@ -112,6 +112,7 @@ HTTP method 명(GET 또는 POST), Consumer가 호출한 HTTP URL 주소(매개�
 
 #### API호출을 위한 매개변수
 다음은 Access Token을 사용해 API를 호출할 때 사용하는 매개변수는 다음 표이다.
+
 | 매개변수               | 설명 |
 | ---------------------- | ---- |
 | OAuth_consumer_key     | Consumer를 구별하는 키 값. Service Provider는 이 키 값으로 Consumer를 구분한다.     |
